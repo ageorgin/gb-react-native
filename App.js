@@ -2,13 +2,18 @@ import React from 'react';
 import { StyleSheet, BackHandler } from 'react-native';
 import { StackNavigator, TabNavigator, NavigationActions } from 'react-navigation';
 import HomeScreen from './src/HomeScreen.js';
-//import UserScreen from './src/UserScreen.js';
+import ProductScreen from './src/ProductScreen.js';
 import SearchScreen from './src/SearchScreen.js';
 import ScanScreen from './src/ScanScreen.js';
 
+const SearchNavigator = StackNavigator({
+  Search: { screen: SearchScreen },
+  Product: { screen: ProductScreen }
+});
+
 const MainScreenNavigator = TabNavigator({
-  Search: { screen: SearchScreen},
-  Scan: { screen: ScanScreen},
+  SearchNav: { screen: SearchNavigator },
+  Scan: { screen: ScanScreen },
 });
 
 
@@ -25,16 +30,13 @@ const GbAppContainer = StackNavigator({
 const defaultGetStateForAction = GbAppContainer.router.getStateForAction;
 
 GbAppContainer.router.getStateForAction = (action, state) => {
-  console.log("action", action);
-  console.log("state", state);
-
-  if (
-    state &&
-    state.index > 0 && 
-    action.type == NavigationActions.BACK &&
-    state.routes[state.index - 1].routeName == 'Home'
-  ) {
+  if (action.type === "Navigation/BACK" && state && state.routes[state.index].routeName === "Home") {
     return null;
+  }
+  if (action.type === "Navigation/BACK" && state) {
+    const newRoutes = state.routes.filter(r => r.routeName !== "Home");
+    const newIndex = newRoutes.length - 1;
+    return defaultGetStateForAction(action, { index: newIndex, routes: newRoutes });
   }
 
   return defaultGetStateForAction(action, state);

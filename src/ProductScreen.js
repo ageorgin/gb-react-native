@@ -1,18 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default class UserScreen extends React.Component {
+export default class ProductScreen extends React.Component {
   static navigationOptions = {
-      title: 'User'
+      title: 'Product'
   };
 
   render() {
     const { params } = this.props.navigation.state;
     return (
       <View>
-        <Text>User Screen</Text>
-        <Text>Username: {params.user}</Text>
-        <Text>UserId: {params.userId}</Text>
+        <Text>Product Screen</Text>
+        <Text>Product name: {params.productName}</Text>
+        <Text>Product Id: {params.productId}</Text>
       </View>
     );
   }
