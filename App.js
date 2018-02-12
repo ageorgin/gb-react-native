@@ -6,14 +6,29 @@ import ProductScreen from './src/ProductScreen.js';
 import SearchScreen from './src/SearchScreen.js';
 import ScanScreen from './src/ScanScreen.js';
 
+const api = "here api";
+const screenProps = {apiClient: api};
+
 const SearchNavigator = StackNavigator({
-  Search: { screen: SearchScreen },
-  Product: { screen: ProductScreen }
+  Search: {
+    screen: props => <SearchScreen {...props} {...screenProps}/>,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  Product: {
+    screen: props => <ProductScreen {...props} {...screenProps}/>,
+    navigationOptions: {
+      headerTitle: 'Product',
+    }
+  }
 });
 
 const MainScreenNavigator = TabNavigator({
   SearchNav: { screen: SearchNavigator },
   Scan: { screen: ScanScreen },
+}, {
+  headerMode: 'none'
 });
 
 
@@ -25,6 +40,8 @@ const GbAppContainer = StackNavigator({
       header: null,
     },
   }
+}, {
+  headerMode: 'none'
 });
 
 const defaultGetStateForAction = GbAppContainer.router.getStateForAction;

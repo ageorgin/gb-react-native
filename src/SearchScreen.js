@@ -4,16 +4,32 @@ import { ListItem } from "react-native-elements";
 
 export default class SearchScreen extends React.Component {
   static navigationOptions = {
-      header: null
+      header: 'none'
   };
 
   constructor(props) {
     super(props)
 
+    console.log(this.props.apiClient);
+
     this.state = {
       searchText: "",
       products: []
     };
+
+    this.props.navigation.addListener('willFocus', () => {
+      console.log('Will focus');
+      const { params } = this.props.navigation.state;
+      if (params == undefined) {
+        return;
+      }
+
+      this.setState({searchText: params.searchText});
+      this.doSearch();
+      console.log(params);
+
+      this.props.navigation.state.params = undefined;
+    });
   }
 
   doSearch = () => {

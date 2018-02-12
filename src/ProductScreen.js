@@ -7,6 +7,7 @@ export default class ProductScreen extends React.Component {
   };
 
   render() {
+    console.log(this.props.apiClient);
     const { params } = this.props.navigation.state;
     return (
       <View>
