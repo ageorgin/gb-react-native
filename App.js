@@ -28,7 +28,9 @@ const MainScreenNavigator = TabNavigator({
   SearchNav: { screen: SearchNavigator },
   Scan: { screen: ScanScreen },
 }, {
-  headerMode: 'none'
+  headerMode: 'none',
+  swipeEnabled: false,
+  tabBarPosition: 'bottom',
 });
 
 
