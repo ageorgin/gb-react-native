@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, BackHandler } from 'react-native';
-import { StackNavigator, TabNavigator, NavigationActions } from 'react-navigation';
+import { StackNavigator, TabNavigator, NavigationActions, TabBarBottom } from 'react-navigation';
 import HomeScreen from './src/HomeScreen.js';
 import ProductScreen from './src/ProductScreen.js';
 import SearchScreen from './src/SearchScreen.js';
 import ScanScreen from './src/ScanScreen.js';
+import { Ionicons } from '@expo/vector-icons';
 
 const api = "here api";
 const screenProps = {apiClient: api};
@@ -25,12 +26,49 @@ const SearchNavigator = StackNavigator({
 });
 
 const MainScreenNavigator = TabNavigator({
-  SearchNav: { screen: SearchNavigator },
-  Scan: { screen: ScanScreen },
+  SearchNav: {
+    screen: SearchNavigator,
+    navigationOptions: {
+      tabBarLabel: "Rechercher",
+      tabBarIcon: ({focused}) => (
+        <Ionicons
+          name={focused ? "ios-search" : "ios-search-outline"}
+          size={25}
+          style={{ color: focused ? '#33A3F4' : '#949494'}}
+        />
+      ),
+    }
+  },
+  Scan: {
+    screen: ScanScreen,
+    navigationOptions: {
+      tabBarLabel: "Scanner",
+      tabBarIcon: ({focused}) => (
+        <Ionicons
+          name={focused ? "ios-camera" : "ios-camera-outline"}
+          size={25}
+          style={{ color: focused ? '#33A3F4' : '#949494'}}
+        />
+      ),
+    }
+  },
 }, {
   headerMode: 'none',
   swipeEnabled: false,
   tabBarPosition: 'bottom',
+  tabBarComponent: TabBarBottom,
+  tabBarOptions: {
+    activeTintColor: '#33A3F4',
+    inactiveTintColor: '#949494',
+    showIcon: true,
+    indicatorStyle: {height: 0},
+    style: {
+        backgroundColor: '#fff',
+    },
+    labelStyle: {
+        fontSize: 12,
+    },
+  },
 });
 
 
