@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Image, FlatList, Button } from 'react-native';
 import { ListItem, Rating } from "react-native-elements";
 
 export default class ProductScreen extends React.Component {
@@ -84,6 +84,14 @@ export default class ProductScreen extends React.Component {
             renderItem={this.renderIngredientItem}
           />
         </View>
+        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+          <View style={{ width: 300 }}>
+            <Button
+              title='Bouton action produit'
+              onPress={() => console.log('todo')}
+            />
+          </View>
+        </View>
       </View>
     );
   }
@@ -94,11 +102,11 @@ export default class ProductScreen extends React.Component {
       title=''
       subtitle={
         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-          <Text>{item.name}</Text>
+          <Text style={{flex: 0.7 }}>{item.name}</Text>
           <Rating
-            readOnly
+            readonly
             ratingCount={5}
-            startingValue={3}
+            startingValue={item.note}
             imageSize={20}
           />
         </View>
